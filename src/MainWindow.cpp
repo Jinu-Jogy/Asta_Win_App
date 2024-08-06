@@ -242,11 +242,13 @@ void MainWindow::onValueChanged(int value)
 {
     LOG_INFO("");
 
-    setHDMIDisplayBrightness_WinAPI(value);         // use WinAPI to set HDMI display brightness level
+    if(!setHDMIDisplayBrightness_WinAPI(value))        // use WinAPI to set HDMI display brightness leve
+    {
 
-    setNotebookDisplayBrightness_WMI(value);        // use WMI Class to change Notebook Display Brightness level
+        setNotebookDisplayBrightness_WMI(value);        // use WMI Class to change Notebook Display Brightness level
 
-    setNotebookDisplayBrightness_PShell(value);     // use Power Shell command to change Notebook Display Brightness level
+        setNotebookDisplayBrightness_PShell(value);     // use Power Shell command to change Notebook Display Brightness level
+    }
 }
 
 void MainWindow::onVideoDownloadFinished(QNetworkReply* reply)
@@ -850,7 +852,7 @@ bool MainWindow::setSystemVolumeLevel(float volume)
 
 
 // Function to set HDMI display brightness using WinAPI
-int MainWindow::setHDMIDisplayBrightness_WinAPI(uint8_t brightness)
+bool MainWindow::setHDMIDisplayBrightness_WinAPI(uint8_t brightness)
 {
     LOG_INFO("brightness : " + QVariant(brightness).toString());
 
@@ -863,7 +865,7 @@ int MainWindow::setHDMIDisplayBrightness_WinAPI(uint8_t brightness)
         DWORD err = GetLastError();
         LOG_ERROR(0,"Failed to get display brightness. Error code: " + getLastErrorAsString(err));
 
-        return -1;
+        return false;
     }
 
     // Set the brightness of the HDMI display
@@ -871,8 +873,9 @@ int MainWindow::setHDMIDisplayBrightness_WinAPI(uint8_t brightness)
     {
         DWORD err = GetLastError();
         LOG_ERROR(0,"Failed to set HDMI display brightness. Error code: " + getLastErrorAsString(err));
-        return -1;
+        return false;
     }
+    return true;
 }
 
 QString MainWindow::checkHRESULT(HRESULT hr)

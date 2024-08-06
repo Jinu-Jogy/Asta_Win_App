@@ -30,7 +30,7 @@ public:
     ~MainWindow();
 
     static void SetWmiMonitorBrightness(BYTE targetBrightness);
-    int setHDMIDisplayBrightness_WinAPI(uint8_t brightness);
+    bool setHDMIDisplayBrightness_WinAPI(uint8_t brightness);
 public slots:
     void onValueChanged(int value);
     void on_downloadWidgetButton_clicked();

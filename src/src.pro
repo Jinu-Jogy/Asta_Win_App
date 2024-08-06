@@ -48,7 +48,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
      $$PWD/main.cpp \
      $$PWD/MainWindow.cpp \
-     SimplePlayer.cpp \
      components/HibernationClock.cpp \
      network/ApiBroker.cpp \
      redux/Controller.cpp \
@@ -56,7 +55,6 @@ SOURCES += \
 
 HEADERS += \
      $$PWD/MainWindow.h \
-     SimplePlayer.h \
      components/AppSettings.h \
      components/HibernationClock.h \
      network/ApiBroker.h \
@@ -72,8 +70,7 @@ HEADERS += \
      utils/utils.h
 
 FORMS += \
-    MainWindow.ui \
-    SimplePlayer.ui
+    MainWindow.ui
 
 TRANSLATIONS += \
     AstaCMS_en_IN.ts
@@ -87,12 +84,12 @@ DISTFILES += \
     DeleteFilesAfterDelay.ps1 \
     resources/readVideo.mp4
 
-contains(DEFINES,BUILD_x64)
-{
-    message( "Src Configuring OpenCV Library for BUILD_x64..." )
-    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/thirdparty/libvlc/include1/lib/ -VLCQtCore -VLCQtQml -VLCQtWidgets
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/thirdparty/libvlc/include1/lib/ -VLCQtCored -VLCQtQmld -VLCQtWidgetsd
-}
+#contains(DEFINES,BUILD_x64)
+#{
+#    message( "Src Configuring OpenCV Library for BUILD_x64..." )
+#    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/thirdparty/libvlc/include1/lib/ -VLCQtCore -VLCQtQml -VLCQtWidgets
+#    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/thirdparty/libvlc/include1/lib/ -VLCQtCored -VLCQtQmld -VLCQtWidgetsd
+#}
 
-INCLUDEPATH += $$PWD/thirdparty/libvlc/include1
-DEPENDPATH += $$PWD/thirdparty/libvlc/include1
+#INCLUDEPATH += $$PWD/thirdparty/libvlc/include1
+#DEPENDPATH += $$PWD/thirdparty/libvlc/include1
